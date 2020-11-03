@@ -23,17 +23,19 @@
 <header>
         <div class="wrap">
             <div class="menu">
-                <a href="#">Главная</a>
+                <a href="{% url 'home_page_url' %}">Главная</a>
             </div>
             <div class="reg-auth">
+                {% if not request.user.is_authenticated %}
                 <div class="not-signin">
-                    <a href="#">Вход</a>
-                    <a href="#">Регистрация</a>
+                    <a href="{% url 'authorization_url' %}">Вход</a>
                 </div>
+                {% else %}
                 <div class="signin">
                     <a href="#">Личный кабинет</a>
-                    <a href="#">Выход</a>
+                    <a href="{% url 'logout_url' %}">Выход</a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </header>

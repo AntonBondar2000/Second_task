@@ -53,10 +53,7 @@ header .wrap .reg-auth {
   display: -ms-flexbox;
   display: flex;
   width: 30%;
-  /*.not-signin
-                display: none*/
 }
-
 header .wrap .reg-auth div {
   width: 100%;
   display: -webkit-box;
@@ -75,10 +72,6 @@ header .wrap .reg-auth a {
 
 header .wrap .reg-auth a:hover {
   border-bottom: 2px solid #08f;
-}
-
-header .wrap .reg-auth .signin {
-  display: none !important;
 }
 
 .main {
@@ -165,4 +158,3 @@ header .wrap .reg-auth .signin {
           justify-content: center;
   margin-top: 20px;
 }
-/*# sourceMappingURL=home.css.map */

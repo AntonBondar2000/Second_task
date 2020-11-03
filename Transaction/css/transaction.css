@@ -80,28 +80,4 @@ header .wrap .reg-auth a:hover {
 header .wrap .reg-auth .signin {
   display: none !important;
 }
-
-.main {
-  padding: 150px 0 100px 0;
-  width: 100%;
-}
-
-.main th, .main td {
-  padding: 20px 0 20px 0;
-  text-align: center;
-}
-
-.main .button-cancel {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.main .button-cancel button {
-  margin-top: 100px;
-}
 /*# sourceMappingURL=transaction.css.map */

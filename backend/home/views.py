@@ -9,22 +9,21 @@ from django.core.paginator import Paginator
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 
-
 # Create your views here.
 class List_persons(View):
 
     def get(self, request):
         current_url = request.get_full_path()
-
         scores = Score.objects.all()
-        search_query = request.GET.get('search', '')
+        search_query = request.GET.get('search')
         if search_query:
+
             persons = Person.objects.filter(
                 (Q(full_name__contains=search_query) | Q(city__contains=search_query)) & ~Q(user_id=request.user.id))
         else:
             persons = Person.objects.exclude(user_id=request.user.id)
         paginator = Paginator(persons, 5)
-        page_number = request.GET.get('page', '')
+        page_number = request.GET.get('page', current_url)
         page = paginator.get_page(page_number)
 
         if page.has_previous():
@@ -44,7 +43,6 @@ class List_persons(View):
             'prev_url': prev_url,
             'next_url': next_url
         }
-
         return render(request, 'home/home.html', context=context)
 
 
@@ -64,6 +62,7 @@ class LogoutView(LogoutView):
 class Personal_accout(View):
     def get(self, request):
         if request.user.is_authenticated:
+            filter_query = request.GET.get('filter', '')
             person = Person.objects.get(user_id=request.user.id)
             scores = Score.objects.filter(person_score=person)
             current_url = request.get_full_path()
@@ -74,7 +73,11 @@ class Personal_accout(View):
                         deposit_score__person_score__full_name__contains=search_query))
             else:
                 transactions = Transaction.objects.filter(Q(deposit_score__in=scores) | Q(write_of_score__in=scores))
-            paginator = Paginator(transactions, 5)
+
+            if filter_query:
+                transactions = transactions.order_by(str(filter_query))
+
+            paginator = Paginator(transactions, 10)
             page_number = request.GET.get('page', '')
             page = paginator.get_page(page_number)
             if page.has_previous():

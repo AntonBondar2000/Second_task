@@ -31,17 +31,22 @@
                             <h2>Транзакции:</h2>
                             <div class="search">
                                 <nav class="navbar navbar-light bg-transparent justify-content-spase-beetwen">
+                                    <form class="add_filter" action="{% url 'personal_account_url' %}" method="get">
                                     <select class="form-control" id="choose-filter" name="filter">
-                                        <option>По дате: сначала новые</option>
-                                        <option>По дате: сначала старые</option>
-                                        <option>По сумме перевода: убывание</option>
-                                        <option>По сумме перевода: возростание</option>
+                                        <option value="-id">По дате: сначала новые</option>
+                                        <option value="id">По дате: сначала старые</option>
+                                        <option value="-money">По сумме перевода: убывание</option>
+                                        <option value="money">По сумме перевода: возростание</option>
                                     </select>
+                                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                                type="submit">Применить
+                                        </button>
+                                    </form>
                                     <form class="form-inline" action="{{ current_url }}">
                                         <input class="form-control mr-sm-2 search-input" type="search"
                                                placeholder="Search" aria-label="Search" name='search' value="{{ search }}">
                                         <button class="btn btn-outline-success my-2 my-sm-0"
-                                                type="submit">Search
+                                                type="submit">Поиск
                                         </button>
                                     </form>
                                 </nav>
@@ -49,9 +54,6 @@
                             <div class="block-transaction">
                                 {% for transaction in transactions %}
                                     <div class="item-transaction">
-                                        <div class="number-transaction">
-                                            {{ transaction.id }}
-                                        </div>
                                         <div class="who-transaction">
                                             {{ transaction.deposit_score.person_score.full_name }}<br>
                                             {{ transaction.deposit_score.number }}

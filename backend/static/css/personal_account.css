@@ -219,7 +219,7 @@ header .wrap .reg-auth a:hover {
 }
 
 #choose-filter {
-  width: 30%;
+  width: 100%;
 }
 
 .form-inline {
@@ -231,5 +231,9 @@ header .wrap .reg-auth a:hover {
 
 .form-inline .search-input {
   width: 50%;
+}
+.add_filter button{
+    width: 100%;
+    margin-top: 25px;
 }
 /*# sourceMappingURL=personal_account.css.map */

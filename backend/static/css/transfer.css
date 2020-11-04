@@ -53,6 +53,8 @@ header .wrap .reg-auth {
   display: -ms-flexbox;
   display: flex;
   width: 30%;
+  /*.not-signin
+                display: none*/
 }
 
 header .wrap .reg-auth div {
@@ -74,9 +76,30 @@ header .wrap .reg-auth a {
 header .wrap .reg-auth a:hover {
   border-bottom: 2px solid #08f;
 }
-.main{
-  margin-top: 100px;
+
+header .wrap .reg-auth .signin {
+  display: none !important;
 }
-.main form{
-  margin-top: 50px;
+
+.main {
+  padding: 50px 0 100px 0;
+  width: 100%;
 }
+
+.main .form-control[readonly] {
+  background-color: white;
+}
+
+.main .transfer {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.main .transfer form div {
+  margin-top: 25px;
+}
+
+.main .transfer button {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=transfer.css.map */

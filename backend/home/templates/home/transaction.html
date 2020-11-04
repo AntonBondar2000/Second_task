@@ -8,41 +8,45 @@
 {% endblock %}
 
 {% block main %}
-<section class="main">
-    <div class="wrap">
-        <table class="table table-hover">
-            <tbody>
-            <tr>
-                <th scope="row">Номер транзакции:</th>
-                <td>{{ transaction.id }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Средст переведено:</th>
-                <td>{{transaction.money}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Счет списания:</th>
-                <td>{{ transaction.write_of_score.number }}</td>
-            </tr>
-            <tr>
-                <th scope="row">ФИО получателя:</th>
-                <td>{{ transaction.write_of_score.person_score.full_name }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Счет зачисления:</th>
-                <td>{{ transaction.deposit_score.number }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Дата:</th>
-                <td>{{ transaction.date }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="button-cancel">
-            <button type="button" class="btn btn-outline-danger">Отменить транзакцию</button>
-        </div>
+    <section class="main">
+        <div class="wrap">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th scope="row">Номер транзакции:</th>
+                    <td>{{ transaction.id }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Средст переведено:</th>
+                    <td>{{ transaction.money }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Счет списания:</th>
+                    <td>{{ transaction.write_of_score.number }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">ФИО получателя:</th>
+                    <td>{{ transaction.deposit_score.person_score.full_name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Счет зачисления:</th>
+                    <td>{{ transaction.deposit_score.number }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Дата:</th>
+                    <td>{{ transaction.date|date:"d-m-Y" }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <form action="{% url 'transaction_cancel_url' %}" method="post">
+                {% csrf_token %}
+                <input type="text" value="{{ transaction.id }}" style="display: none;" name="id_transaction">
+                <div class="button-cancel">
+                    <button type="submit" class="btn btn-outline-danger">Отменить транзакцию</button>
+                </div>
+            </form>
 
-    </div>
-</section>
+        </div>
+    </section>
 {% endblock %}
 

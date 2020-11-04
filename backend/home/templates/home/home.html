@@ -35,20 +35,28 @@
                             {{ person.date|date:"Y" }}
                         </div>
                         <div class="score_user">
-                            <form action="#">
-                                <p>Счета</p>
+                            <form action="{% url 'transaction_create_url' %}" method="get">
+                            {% csrf_token %}
+                                <div class="score-wrap">
+                                    <p>Счета</p>
+                                    {% for score in scores %}
 
-                                {% for score in scores %}
-                                    {% if score.person_score.id == person.id %}
-                                        <p><input type="radio" name="a" value="{{ score.number }}"> {{ score.number }}
-                                        </p>
-                                    {% endif %}
+                                        {% if score.person_score.id == person.id %}
+                                            <p><input type="radio"  name="deposit_score"
+                                                      value="{{ score.number }}"> {{ score.number }}
+                                            </p>
+                                        {% endif %}
 
-                                    <!-- -->
-                                {% endfor %}
+                                        <!-- -->
+                                    {% endfor %}
+                                </div>
+
+                                <button type="submit" class="btn btn-primary"
+                                        {% if not request.user.is_authenticated %}disabled{% endif %}>Перевести
+                                </button>
                             </form>
                         </div>
-                        <button type="button" class="btn btn-primary" {% if not request.user.is_authenticated %}disabled{% endif %} >Перевести</button>
+
                     </div>
 
                 {% endfor %}
@@ -58,7 +66,7 @@
                 <nav>
                     <ul class="pagination justify-content-center">
 
-                        <li class="page-item {% if not prev_url%}disabled{% endif %}">
+                        <li class="page-item {% if not prev_url %}disabled{% endif %}">
                             <a class="page-link" href="{{ prev_url }}" tabindex="-1" aria-disabled="true">Предыдущая</a>
                         </li>
 
@@ -68,7 +76,7 @@
                             </li>
                         {% endfor %}
 
-                        <li class="page-item {% if not next_url%}disabled{% endif %}">
+                        <li class="page-item {% if not next_url %}disabled{% endif %}">
                             <a class="page-link" href="{{ next_url }}">Следующая</a>
                         </li>
                     </ul>

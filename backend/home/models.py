@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import reverse
 from django.utils.text import slugify
 from time import time
+import random
 
 
 def generation_slug(a):
@@ -51,9 +52,9 @@ class Score(models.Model):
 
 
 class Transaction(models.Model):
-    write_of_score = models.OneToOneField(Score, on_delete=models.CASCADE, verbose_name="Счет списания",
+    write_of_score = models.ForeignKey(Score, on_delete=models.CASCADE, verbose_name="Счет списания",
                                           related_name="write_of")
-    deposit_score = models.OneToOneField(Score, on_delete=models.CASCADE, verbose_name="Счет зачисления",
+    deposit_score = models.ForeignKey(Score, on_delete=models.CASCADE, verbose_name="Счет зачисления",
                                          related_name="deposit")
     slug = models.SlugField(max_length=150, blank=True, unique=True)
     money = models.PositiveIntegerField(blank=True, verbose_name="Переведенная сумма")
@@ -67,5 +68,5 @@ class Transaction(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = generation_slug('transaction')
+            self.slug = generation_slug('transaction' + str(random.random()))
         super().save(*args, **kwargs)

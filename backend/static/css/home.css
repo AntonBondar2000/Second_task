@@ -149,7 +149,7 @@ header .wrap .reg-auth a:hover {
 
 .main .list-users .item-list .score_user {
   text-align: center;
-  width: 40%;
+  width: 30%;
 }
 
 .main .pagination {
@@ -157,4 +157,12 @@ header .wrap .reg-auth a:hover {
       -ms-flex-pack: center;
           justify-content: center;
   margin-top: 20px;
+}
+.score_user form{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.score_user button{
+  max-height: 50px;
 }

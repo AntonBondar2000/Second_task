@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Счет{% endblock %}
+
+
+{% block link_style %}
+    <link rel="stylesheet" href="{% static 'css/score.css' %}">
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="main">
+        <div class="wrap">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th scope="row">Название счета:</th>
+                    <td>{{ score.title }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Номер счета:</th>
+                    <td>{{ score.number }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">ФИО владельца:</th>
+                    <td>{{score.person_score.full_name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Окончание действия:</th>
+                    <td>{{ score.end_date|date:"d-m-Y" }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Средств:</th>
+                    <td>{{ score.money }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Валюта:</th>
+                    <td>{{score.currency}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Банк:</th>
+                    <td>{{score.bank}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">БИК:</th>
+                    <td>{{score.bic}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">ИНН:</th>
+                    <td>{{score.inn}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">КПП:</th>
+                    <td>{{score.kpp}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

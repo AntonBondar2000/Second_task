@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Транзакции{% endblock %}
+
+{% block link_style %}
+    <link rel="stylesheet" href="{% static 'css/transaction.css' %}">
+{% endblock %}
+
+{% block main %}
+<section class="main">
+    <div class="wrap">
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <th scope="row">Номер транзакции:</th>
+                <td>{{ transaction.id }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Средст переведено:</th>
+                <td>{{transaction.money}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Счет списания:</th>
+                <td>{{ transaction.write_of_score.number }}</td>
+            </tr>
+            <tr>
+                <th scope="row">ФИО получателя:</th>
+                <td>{{ transaction.write_of_score.person_score.full_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Счет зачисления:</th>
+                <td>{{ transaction.deposit_score.number }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Дата:</th>
+                <td>{{ transaction.date }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="button-cancel">
+            <button type="button" class="btn btn-outline-danger">Отменить транзакцию</button>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+

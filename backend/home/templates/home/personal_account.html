@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block link_style %}
+    <link rel="stylesheet" href="{% static 'css/personal_account.css' %}">
+{% endblock %}
+
+{% block main %}
+    <section class="main-content">
+        <div class="wrap">
+            <div class="row">
+                <div class="col-2">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-messages-list"
+                           data-toggle="list"
+                           href="#list-messages" role="tab" aria-controls="messages">Транзакции</a>
+                        <a class="list-group-item list-group-item-action " id="list-home-list" data-toggle="list"
+                           href="#list-home" role="tab" aria-controls="home">Личная информация</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                           href="#list-profile" role="tab" aria-controls="profile">Счета</a>
+                    </div>
+                </div>
+
+
+                <div class="col-9">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade block-all-transaction show active" id="list-messages" role="tabpanel"
+                             aria-labelledby="list-messages-list">
+                            <h2>Транзакции:</h2>
+                            <div class="search">
+                                <nav class="navbar navbar-light bg-transparent justify-content-spase-beetwen">
+                                    <select class="form-control" id="choose-filter" name="filter">
+                                        <option>По дате: сначала новые</option>
+                                        <option>По дате: сначала старые</option>
+                                        <option>По сумме перевода: убывание</option>
+                                        <option>По сумме перевода: возростание</option>
+                                    </select>
+                                    <form class="form-inline" action="{{ current_url }}">
+                                        <input class="form-control mr-sm-2 search-input" type="search"
+                                               placeholder="Search" aria-label="Search" name='search' value="{{ search }}">
+                                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                                type="submit">Search
+                                        </button>
+                                    </form>
+                                </nav>
+                            </div>
+                            <div class="block-transaction">
+                                {% for transaction in transactions %}
+                                    <div class="item-transaction">
+                                        <div class="number-transaction">
+                                            {{ transaction.id }}
+                                        </div>
+                                        <div class="who-transaction">
+                                            {{ transaction.deposit_score.person_score.full_name }}<br>
+                                            {{ transaction.deposit_score.number }}
+                                        </div>
+                                        <div class="money">{{ transaction.money }}
+                                            <span>{{ transaction.deposit_score.currency }}</span></div>
+                                        <div class="data-transaction">
+                                            {{ transaction.date|date:"d-m-Y" }}
+                                        </div>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="location.href = '{{ transaction.get_absolute_url }}'">Подробнее
+                                        </button>
+                                    </div>
+                                {% endfor %}
+
+
+                            </div>
+                            <div class="pagination">
+                                <nav>
+                                    <ul class="pagination justify-content-center">
+
+                                        <li class="page-item {% if not prev_url %}disabled{% endif %}">
+                                            <a class="page-link" href="{{ prev_url }}" name='search' tabindex="-1"
+                                               aria-disabled="true">Предыдущая</a>
+                                        </li>
+
+                                        {% for n in transactions.paginator.page_range %}
+                                            <li class="page-item {% if transactions.number == n %}active{% endif %}">
+                                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                                            </li>
+                                        {% endfor %}
+
+                                        <li class="page-item {% if not next_url %}disabled{% endif %}">
+                                            <a class="page-link" href="{{ next_url }}">Следующая</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade block-all-information" id="list-home" role="tabpanel"
+                             aria-labelledby="list-home-list">
+                            <h2>Личная информация:</h2>
+                            <div class="block-information">
+                                <div class="item-block block-image">
+                                    <div class="title_el">
+                                        <h2>Фотография: </h2>
+                                    </div>
+                                    <div class="current-image"><img src="/media/{{ person.photo }}"
+                                                                    alt="Фотография пользователя"></div>
+
+                                </div>
+                                <div class="item-block block-name item-block-string">
+                                    <div class="title_el">
+                                        <h2>Полное имя: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.full_name }}
+                                    </div>
+                                </div>
+                                <div class="item-block block-adress item-block-string">
+                                    <div class="title_el">
+                                        <h2>Адрес: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.adress }}
+                                    </div>
+                                </div>
+                                <div class="item-block block-phone item-block-string">
+                                    <div class="title_el">
+                                        <h2>Телефон: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.phone }}
+                                    </div>
+                                </div>
+                                <div class="item-block block-email item-block-string">
+                                    <div class="title_el">
+                                        <h2>Электронная почта: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.email }}
+                                    </div>
+                                </div>
+                                <div class="item-block block-age item-block-string">
+                                    <div class="title_el">
+                                        <h2>Дата рождения: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.date|date:"d-m-Y" }}
+                                    </div>
+                                </div>
+                                <div class="item-block block-login item-block-string">
+                                    <div class="title_el">
+                                        <h2>Логин: </h2>
+                                    </div>
+                                    <div class="text">
+                                        {{ person.user.username }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade block-all-scores" id="list-profile" role="tabpanel"
+                             aria-labelledby="list-profile-list">
+                            <h2>Счета:</h2>
+                            <div class="block-score">
+                                {% for score in scores %}
+                                    <div class="item-score">
+                                        <div class="name-score">
+                                            {{ score.title }}
+                                        </div>
+                                        <div class="number-score">
+                                            {{ score.number }}
+                                        </div>
+                                        <div class="money">{{ score.money }} <span>{{ score.currency }}</span></div>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="location.href = '{{ score.get_absolute_url }}'">Подробнее
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+

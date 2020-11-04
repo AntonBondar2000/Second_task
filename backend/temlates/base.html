@@ -32,7 +32,7 @@
                 </div>
                 {% else %}
                 <div class="signin">
-                    <a href="#">Личный кабинет</a>
+                    <a href="{% url 'personal_account_url' %}">Личный кабинет</a>
                     <a href="{% url 'logout_url' %}">Выход</a>
                 </div>
                 {% endif %}

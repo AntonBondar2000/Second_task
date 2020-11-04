@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Главная{% endblock %}
 
 
 {% block link_style %}
@@ -48,7 +48,7 @@
                                 {% endfor %}
                             </form>
                         </div>
-                        <button type="button" class="btn btn-primary">Перевести</button>
+                        <button type="button" class="btn btn-primary" {% if not request.user.is_authenticated %}disabled{% endif %} >Перевести</button>
                     </div>
 
                 {% endfor %}
